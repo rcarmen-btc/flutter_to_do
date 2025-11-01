@@ -19,7 +19,7 @@ class TaskLoaded extends TaskState {
 }
 
 class TaskError extends TaskState {
-  final List<Task> message;
+  final String message;
 
   const TaskError(this.message);
 }
