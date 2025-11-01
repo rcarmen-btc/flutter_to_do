@@ -21,6 +21,11 @@ class TaskRepository {
     await taskBox.deleteAt(index);
   }
 
+  Future<String> startEditTaskRep(int index) async {
+    final task = taskBox.getAt(index) as Map<String, dynamic>;
+    return task['title'];
+  }
+
   Future<void> toggleTask(int index) async {
     final task = taskBox.getAt(index) as Map<String, dynamic>;
     final updatedTask = Task.fromMap(task);

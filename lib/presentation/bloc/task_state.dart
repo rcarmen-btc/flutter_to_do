@@ -12,6 +12,12 @@ class TaskLoading extends TaskState {
   const TaskLoading();
 }
 
+class StartEditTaskState extends TaskState {
+  final String title;
+
+  const StartEditTaskState(this.title);
+}
+
 class TaskLoaded extends TaskState {
   final List<Task> tasks;
 

@@ -12,6 +12,7 @@ class TaskBloc extends Bloc<ToDoEvent, TaskState> {
         on<AddTask>(_onAddTask);
         on<DeleteTask>(_onDeleteTask);
         on<ToggleTask>(_onToggleTask);
+        on<StartEditTask>(_onStartEditTask);
     }
 
     Future<void> _onLoadTasks(LoadTasks event, Emitter emit) async {
@@ -25,17 +26,26 @@ class TaskBloc extends Bloc<ToDoEvent, TaskState> {
     }
 
     Future<void> _onAddTask(AddTask event, Emitter emit) async {
-        try {
-            final newTask = Task(
-                id: DateTime.now().millisecondsSinceEpoch, 
-                title: event.title,
-                isCompleted: false,
-            );
-            await repository.addTask(newTask);
-            add(LoadTasks());
-        } catch (e) {
-            emit(TaskError('Creating task error: $e'));
-        }
+      try {
+        final newTask = Task(
+            id: DateTime.now().millisecondsSinceEpoch, 
+            title: event.title,
+            isCompleted: false,
+        );
+          await repository.addTask(newTask);
+          add(LoadTasks());
+      } catch (e) {
+        emit(TaskError('Creating task error: $e'));
+      }
+    }
+
+    Future<void> _onStartEditTask(StartEditTask event, Emitter emit) async {
+      try {
+        final String new_title = await repository.startEditTaskRep(event.index);
+        emit(StartEditTaskState(new_title));
+      } catch (e) {
+        emit(TaskError('Start editing error: $e'));
+      }
     }
 
     Future<void> _onDeleteTask(DeleteTask event, Emitter emit) async {

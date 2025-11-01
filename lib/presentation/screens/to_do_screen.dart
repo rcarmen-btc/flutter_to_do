@@ -50,11 +50,22 @@ class _ToDoScreenState extends State<ToDoScreen> {
                               : TextDecoration.none,
                         ),
                       ),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.delete, color: Colors.red),
-                        onPressed: () {
-                          context.read<TaskBloc>().add(DeleteTask(index));
-                        },
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.edit, color: Colors.black),
+                            onPressed: () {
+                              context.read<TaskBloc>().add(StartEditTask(index));
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.delete, color: Colors.red),
+                            onPressed: () {
+                              context.read<TaskBloc>().add(DeleteTask(index));
+                            },
+                          ),
+                        ],
                       ),
                     );
                   },

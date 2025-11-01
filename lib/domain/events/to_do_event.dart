@@ -16,6 +16,12 @@ class DeleteTask extends ToDoEvent {
   const DeleteTask(this.index);
 }
 
+class StartEditTask extends ToDoEvent {
+  final int index;
+
+  const StartEditTask(this.index);
+}
+
 class ToggleTask extends ToDoEvent {
   final int index;
 
